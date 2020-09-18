@@ -3,11 +3,11 @@ import serial.tools.list_ports
 
 def getCOMPorts():
     ports = list(serial.tools.list_ports.comports())
-    arduinoPorts = []
+    raspberryPiPort = None
     emuPorts = []
     for p in ports:
-        if 'Arduino' in p.description:
-            arduinoPorts.append(p)
+        if 'Prolific USB-to-Serial Comm Port' in p.description:
+            raspberryPiPort = p.device
         if 'com0com' in p.description:
-            emuPorts.append(p)
-    return arduinoPorts, emuPorts
+            emuPorts.append(p.device)
+    return raspberryPiPort, emuPorts

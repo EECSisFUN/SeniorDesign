@@ -6,11 +6,11 @@ from similarFunctions import getCOMPorts
 
 
 def writeSerialData():
-    arduinoPorts, emuPorts = getCOMPorts()
-    if not arduinoPorts:
+    raspberryPiPort, emuPorts = getCOMPorts()
+    if not raspberryPiPort:
         writePort = emuPorts[1]
     else:
-        writePort = arduinoPorts[1]
+        writePort = raspberryPiPort
     s = serial.Serial(
         port=writePort,
         baudrate=20000,

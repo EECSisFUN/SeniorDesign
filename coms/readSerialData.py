@@ -5,11 +5,11 @@ from similarFunctions import getCOMPorts
 
 
 def readSerialData():
-    arduinoPorts, emuPorts = getCOMPorts()
-    if not arduinoPorts:
+    raspberryPiPort, emuPorts = getCOMPorts()
+    if not raspberryPiPort:
         readPort = emuPorts[0]
     else:
-        readPort = arduinoPorts[0]
+        readPort = raspberryPiPort
     s = serial.Serial(
         port=readPort,
         baudrate=20000,
