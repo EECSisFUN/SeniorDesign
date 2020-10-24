@@ -35,3 +35,19 @@ body
     border: 4px solid #000000;
     
 }
+
+input#muteUnmuteApp {
+    display: none;
+}
+
+.unmute img {
+    display: none;
+}
+
+input#muteUnmuteApp:checked ~ .unmute img {
+    display: initial;
+}
+
+input#muteUnmuteApp:checked ~ .mute img {
+    display: none;
+}

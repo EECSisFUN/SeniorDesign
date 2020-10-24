@@ -26,7 +26,7 @@ def muteApplicationVolume(pid):
 
 # param: application session
 def unmuteApplicationVolume(pid):
-    devices[strpid]["session"].SimpleAudioVolume.SetMute(0, None)
+    devices[pid]["session"].SimpleAudioVolume.SetMute(0, None)
 
 # param: application session, and new level from 0.0 to 1.0
 def setApplicationVolume(pid, newVolume):

@@ -73,6 +73,17 @@
                 <div class="col-xs-3">
                     <input id="masterVolume" type="range" min="0" max="100" class="slider">
                     <h3 class="text-center" id="testslider1name">Master</h3>
+<!--                    <a onclick="mute(); changeImage(this)" id="muteUnmuteApp">-->
+<!--                        <img src="../device/images/speaker.png" id="unmuteIcon" width=20% height=20%/>-->
+<!--                        <img src="../device/images/mute.png" id="muteIcon" width=20% height=20%/>-->
+<!--                    </a>-->
+                    <input type="checkbox" id="muteUnmuteApp">
+                    <label for="muteUnmuteApp" class="unmute">
+                        <img src="../device/images/mute.png" title="Mute icon" width=20% height=20%>
+                    </label>
+                    <label for="muteUnmuteApp" class="mute">
+                        <img src="../device/images/speaker.png" title="Speaker icon" width=20% height=20%>
+                    </label>
                 </div>
             </div>
         </div>
@@ -84,14 +95,14 @@
         if(!pressed)
             {
                 document.getElementById("muteUnmute").innerHTML = "Unmute"
-                document.getElementById("muteUnmute").style.backgroundColor = "green";       
-                document.getElementById("muteUnmute").style.color = "white"; 
+                document.getElementById("muteUnmute").style.backgroundColor = "green";
+                document.getElementById("muteUnmute").style.color = "white";
             }
             else
             {
                 document.getElementById("muteUnmute").innerHTML = "Mute"
-                document.getElementById("muteUnmute").style.backgroundColor = "red";       
-                document.getElementById("muteUnmute").style.color = "white";       
+                document.getElementById("muteUnmute").style.backgroundColor = "red";
+                document.getElementById("muteUnmute").style.color = "white";
             }
         }
         //mute/unmute button
@@ -123,7 +134,7 @@
                 return false;
             });
         });
-      
+
         function myOnload() {
             //requests program data from python which requests it from windows
             $.getJSON("http://127.0.0.1:5001" + '/data2', {
@@ -168,7 +179,31 @@
             });
            
         }
-        
+
+        var pressedApp = false;
+        // mute/unmute individual app
+        $(function() {
+            $('#muteUnmuteApp').bind("change", function(event) {
+                if(event.type=="change"){
+                    $.getJSON("http://127.0.0.1:5001" + '/data', {
+                    Name: "WindowsVolumeMixerControl",
+                    Func: (pressedApp ? "unmuteApplicationVolume" : "muteApplicationVolume"),
+                    Params: 0,
+                    ProcessId: -1 //whatever
+                    }, function(data) {
+                        pressedApp = !pressedApp
+                    });
+                    return false;
+                }
+            });
+        });
+
+<!--        function mute() {}-->
+
+<!--        function changeImage(obj) {-->
+<!--            obj.classList.toggle('playing');-->
+<!--        }-->
+
     </script>
     <script src="index.js"></script>
   </body>
