@@ -13,9 +13,9 @@ def WindowsVolumeMixer(funcs):
         elif(i["Name"] == "setMasterVolume"):
             WindowsVolumeMixerControl.setMasterVolume(i["Params"][0])
         elif(i["Name"] == "muteApplicationVolume"):
-            WindowsVolumeMixerControl.muteApplicationVolume(i["Params"][0])
+            WindowsVolumeMixerControl.muteApplicationVolume(i["Params"][1])
         elif(i["Name"] == "unmuteApplicationVolume"):
-            WindowsVolumeMixerControl.unmuteApplicationVolume(i["Params"][0])
+            WindowsVolumeMixerControl.unmuteApplicationVolume(i["Params"][1])
         elif(i["Name"] == "setApplicationVolume"):
             WindowsVolumeMixerControl.setApplicationVolume(i["Params"][1], i["Params"][0])
         elif(i["Name"] == "getAllSoundDeviceData"):

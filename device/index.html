@@ -160,10 +160,10 @@
 
             input_checkbox = document.createElement("input")
             input_checkbox.type = "checkbox"
-            input_checkbox.id = "muteUnmuteApp"
+            input_checkbox.id = "muteUnmuteApp" + index
 
             label_unmute = document.createElement("label")
-            label_unmute.for = "muteUnmuteApp"
+            label_unmute.for = input_checkbox.id
             label_unmute.className = "unmute"
 
             img_mute = document.createElement("img")
@@ -173,7 +173,7 @@
             img_mute.style.height = "20%"
 
             label_mute = document.createElement("label")
-            label_mute.for = "muteUnmuteApp"
+            label_mute.for = input_checkbox.id
             label_mute.className = "mute"
 
             img_speaker = document.createElement("img")
@@ -205,36 +205,32 @@
 
             var pressed_app = false;
             // mute/unmute individual app
-            $(input_checkbox).bind("change", function(event) {
-                if(event.type=="change"){
-                    $.getJSON("http://127.0.0.1:5001" + '/data', {
-                    Name: "WindowsVolumeMixerControl",
-                    Func: (pressedApp ? "unmuteApplicationVolume" : "muteApplicationVolume"),
-                    Params: 0,
-                    ProcessId: -1
-                    }, function(data) {
-                        pressed_app = !pressed_app
-                    });
-                    return false;
-                }
+            $(input_checkbox).bind("change", function() {
+                $.getJSON("http://127.0.0.1:5001" + '/data', {
+                Name: "WindowsVolumeMixerControl",
+                Func: (pressed_app ? "unmuteApplicationVolume" : "muteApplicationVolume"),
+                Params: 0,
+                ProcessId: value.pid
+                }, function(data) {
+                    pressed_app = !pressed_app
+                });
+                return false;
             });
         }
 
         var pressedApp = false;
-        // mute/unmute individual app
+        // mute/unmute master
         $(function() {
-            $('#muteUnmuteApp').bind("change", function(event) {
-                if(event.type=="change"){
-                    $.getJSON("http://127.0.0.1:5001" + '/data', {
-                    Name: "WindowsVolumeMixerControl",
-                    Func: (pressedApp ? "unmuteApplicationVolume" : "muteApplicationVolume"),
-                    Params: 0,
-                    ProcessId: -1 //whatever
-                    }, function(data) {
-                        pressedApp = !pressedApp
-                    });
-                    return false;
-                }
+            $('#muteUnmuteApp').bind("change", function() {
+                $.getJSON("http://127.0.0.1:5001" + '/data', {
+                Name: "WindowsVolumeMixerControl",
+                Func: (pressedApp ? "unmuteMasterVolume" : "muteMasterVolume"),
+                Params: 0,
+                ProcessId: -1 //whatever
+                }, function(data) {
+                    pressedApp = !pressedApp
+                });
+                return false;
             });
         });
 

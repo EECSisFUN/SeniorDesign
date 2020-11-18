@@ -22,11 +22,11 @@ def setMasterVolume(newVolume):
 # Application Volume
 # param: application session
 def muteApplicationVolume(pid):
-    devices[pid]["session"].SimpleAudioVolume.SetMute(1, None)
+    devices[int(pid)]["session"].SimpleAudioVolume.SetMute(1, None)
 
 # param: application session
 def unmuteApplicationVolume(pid):
-    devices[pid]["session"].SimpleAudioVolume.SetMute(0, None)
+    devices[int(pid)]["session"].SimpleAudioVolume.SetMute(0, None)
 
 # param: application session, and new level from 0.0 to 1.0
 def setApplicationVolume(pid, newVolume):
