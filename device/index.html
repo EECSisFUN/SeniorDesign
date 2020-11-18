@@ -73,16 +73,12 @@
                 <div class="col-xs-3">
                     <input id="masterVolume" type="range" min="0" max="100" class="slider">
                     <h3 class="text-center" id="testslider1name">Master</h3>
-<!--                    <a onclick="mute(); changeImage(this)" id="muteUnmuteApp">-->
-<!--                        <img src="../device/images/speaker.png" id="unmuteIcon" width=20% height=20%/>-->
-<!--                        <img src="../device/images/mute.png" id="muteIcon" width=20% height=20%/>-->
-<!--                    </a>-->
                     <input type="checkbox" id="muteUnmuteApp">
                     <label for="muteUnmuteApp" class="unmute">
-                        <img src="../device/images/mute.png" title="Mute icon" width=20% height=20%>
+                        <img src="../device/images/mute.png" title="Mute icon" width="20%" height="20%">
                     </label>
                     <label for="muteUnmuteApp" class="mute">
-                        <img src="../device/images/speaker.png" title="Speaker icon" width=20% height=20%>
+                        <img src="../device/images/speaker.png" title="Speaker icon" width="20%" height="20%">
                     </label>
                 </div>
             </div>
@@ -162,8 +158,37 @@
             h3.className = "text-center"
             h3.innerHTML = value.name
 
+            input_checkbox = document.createElement("input")
+            input_checkbox.type = "checkbox"
+            input_checkbox.id = "muteUnmuteApp"
+
+            label_unmute = document.createElement("label")
+            label_unmute.for = "muteUnmuteApp"
+            label_unmute.className = "unmute"
+
+            img_mute = document.createElement("img")
+            img_mute.src = "../device/images/mute.png"
+            img_mute.title = "Mute icon"
+            img_mute.style.width = "20%"
+            img_mute.style.height = "20%"
+
+            label_mute = document.createElement("label")
+            label_mute.for = "muteUnmuteApp"
+            label_mute.className = "mute"
+
+            img_speaker = document.createElement("img")
+            img_speaker.src = "../device/images/speaker.png"
+            img_speaker.title = "Speaker icon"
+            img_speaker.style.width = "20%"
+            img_speaker.style.height = "20%"
+
             outerdiv.append(input)
             outerdiv.append(h3)
+            outerdiv.append(input_checkbox)
+            label_unmute.append(img_mute)
+            outerdiv.append(label_unmute)
+            label_mute.append(img_speaker)
+            outerdiv.append(label_mute)
 
             document.getElementById("sliderContainer").append(outerdiv)
 
@@ -177,7 +202,22 @@
                 });
                 return false;
             });
-           
+
+            var pressed_app = false;
+            // mute/unmute individual app
+            $(input_checkbox).bind("change", function(event) {
+                if(event.type=="change"){
+                    $.getJSON("http://127.0.0.1:5001" + '/data', {
+                    Name: "WindowsVolumeMixerControl",
+                    Func: (pressedApp ? "unmuteApplicationVolume" : "muteApplicationVolume"),
+                    Params: 0,
+                    ProcessId: -1
+                    }, function(data) {
+                        pressed_app = !pressed_app
+                    });
+                    return false;
+                }
+            });
         }
 
         var pressedApp = false;
@@ -197,12 +237,6 @@
                 }
             });
         });
-
-<!--        function mute() {}-->
-
-<!--        function changeImage(obj) {-->
-<!--            obj.classList.toggle('playing');-->
-<!--        }-->
 
     </script>
     <script src="index.js"></script>

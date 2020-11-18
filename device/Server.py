@@ -61,7 +61,7 @@ def data():
 if __name__ == "__main__":
     print('starting server')
     ser1 = serial.Serial(
-        port='COM5',  # for emulation insert your COMX port here
+        port='COM4',  # for emulation insert your COMX port here
         # port='/dev/ttys0', # for use on the pi
         baudrate=20000,
         parity=serial.PARITY_NONE,
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
     # comment this out when running on the pi
     ser2 = serial.Serial(
-        port='COM7',
+        port='COM6',
         baudrate=20000,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,

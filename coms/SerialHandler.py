@@ -16,6 +16,13 @@ def connectPort(port):
 
 
 def sendData(ser, data):
+    ser2 = serial.Serial(
+        port='COM5',
+        baudrate=20000,
+        parity=serial.PARITY_NONE,
+        stopbits=serial.STOPBITS_ONE,
+        bytesize=serial.EIGHTBITS,
+        timeout=1)
     data = (json.dumps(data) + '\n').encode()
     ser2.write(data)
 
