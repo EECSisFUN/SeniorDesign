@@ -4,7 +4,6 @@ import JsonHandler
 import time
 from Apps import WindowsVolumeMixerControl
 
-
 def main():
     port = PortsHandler.findPort()
     while port is None:
@@ -16,7 +15,6 @@ def main():
 
     # The listen will infinite loop in the handler
     SerialHandler.listen(s)
-
 
 if __name__ == '__main__':
     main()
