@@ -5,7 +5,7 @@ crl = None
 byte_obj = None
 myClientID = TwitchAuth.getClientId()
 mySecret = TwitchAuth.getSecret()
-
+# hello
 def setup():
     global crl, byte_obj
     crl = pycurl.Curl()
