@@ -37,5 +37,5 @@ def getMoviePosterByTitle(title):
         print(baseurl + movie.art)
         ImageWriter.writeImage(movie.title, baseurl + movie.art)
 
-getMoviePosterByTitle("tenet")
+#getMoviePosterByTitle("tenet")
 
