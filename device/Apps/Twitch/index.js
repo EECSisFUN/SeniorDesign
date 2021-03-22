@@ -22,26 +22,33 @@ $(function () {
     });
 });
 
-$(function () {
-    $('#button').on("click", function () {
-        var channel = $("#channel").val();
-        $.getJSON("http://127.0.0.1:5001" + '/data', {
-            Name: "Twitch",
-            Func: "getFakeText",
-            Params: [],
-            ExpectReturn: true
-        }, function (data) {
-            console.log(data);
-            console.log(data[0]);
+function getChat() {
+    var channel = $("#channel").val();
+    $.getJSON("http://127.0.0.1:5001" + '/data', {
+        Name: "Twitch",
+        Func: "getChat",
+        Params: channel,
+        ExpectReturn: true
+    }, function (data) {
+        console.log(data);
+        console.log(data[0]);
 
-            for (var item in data) {
-                console.log(item)
-                document.getElementById("chat").innerHTML = 
-                document.getElementById("chat").innerHTML 
-                + ("<div>" + data[item][0] + " : " + data[item][1]+ "</div> </br>")
-            }
-            
-        });
-        return false;
+        for (var item in data) {
+            console.log(item)
+            document.getElementById("chat").innerHTML = 
+            document.getElementById("chat").innerHTML 
+            + ("<div>" + data[item][0] + " : " + data[item][1]+ "</div> </br>")
+        }
+        // hmm, the recursive stack will surely overflow
+        getChat();
+        
+    });
+    
+}
+
+$(function () {
+    $('#chatbutton').on("click", function () {
+        // hmm what should this while predicate be? Just wait for this js to be unloaded, I guess?
+        getChat();
     });
 });

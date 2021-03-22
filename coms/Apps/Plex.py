@@ -1,11 +1,20 @@
 from plexapi.myplex import MyPlexAccount
+from plexapi.server import PlexServer
+
+import plexapi
 # from Apps import PlexAuth # running with main
-import PlexAuth # running just this file
-import ImageWriter
+try:
+    from Apps import PlexAuth
+    from Apps import ImageWriter
+except ModuleNotFoundError:
+    import PlexAuth
+    import ImageWriter
 
+plex = PlexServer(PlexAuth.getBaseUrl(), PlexAuth.getToken())
 
-account = MyPlexAccount(PlexAuth.getUsername(), PlexAuth.getPassword())
-plex = account.resource(PlexAuth.getServerName()).connect()
+# account = MyPlexAccount(PlexAuth.getUsername(), PlexAuth.getPassword())
+# plex = account.resource(PlexAuth.getServerName()).connect()
+
 baseurl = plex._baseurl
 
 movies = plex.library.section('Movies')
@@ -20,7 +29,7 @@ def getUnwatchedMovies():
 def getMovieByDirector(director):
     global movies
     arr = []
-    for movie in movies.search(None, director=director):
+    for movie in movies.search(director):
         arr.append(movie.title)
     return arr
 
@@ -32,10 +41,20 @@ def getMovieByTitle(title):
     return arr
 
 def getMoviePosterByTitle(title):
-    global movies
+    global movies, baseurl
     for movie in movies.search(title):
         print(baseurl + movie.art)
         ImageWriter.writeImage(movie.title, baseurl + movie.art)
 
 #getMoviePosterByTitle("tenet")
+#print(plexapi.video.Movie == plexapi.video.Movie)
+#print(getMovieByTitle("tenet"))
+
+for movie in getMovieByTitle("tenet"):
+    print(plex.transcodeImage(movie, 400,400))
+
+print(plex.clients())
+
+for client in plex.sessions():
+    print(client.title)
 

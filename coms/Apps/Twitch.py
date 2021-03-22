@@ -1,6 +1,8 @@
 # uses a twitch api python library to get various twitch data 
-from Apps import TwitchAuth
-#import TwitchAuth
+try:
+    from Apps import TwitchAuth
+except ModuleNotFoundError:
+    import TwitchAuth
 import requests
 import socket
 import time
@@ -13,6 +15,9 @@ myRedirectUri = TwitchAuth.getRedirectUri()
 myChannelOAuth = TwitchAuth.getChannelOAuth()
 
 ircbot = socket.socket()
+
+joinedChannel = False # keeps track of if a channel is joined or not
+joinedChannelName = ""
 
 def setup():
     global myClientID, mySecret, myOAuth, myRedirectUri, ircbot, myChannelOAuth
@@ -27,7 +32,7 @@ def setup():
             "scope": "chat:read"
             }
         r = requests.post(url = "https://id.twitch.tv/oauth2/token", data = head)
-        print(r.json())
+        #print(r.json())
         
         if r.status_code == 200:
             print('got twitch oAuth sucessful')
@@ -42,13 +47,11 @@ def setup():
 
 
 def joinChannel(channel):
+    global joinedChannel, joinedChannelName
     ircbot.send(("JOIN #" + channel + "\r\n").encode("utf-8"))
-    while True:
-        response = ircbot.recv(2048).decode("utf-8")
-        name = response[1:response.find("!")]
-        msg = response[response.find(channel)+len(channel)+2:]
-        print(name, ":", msg)
-        time.sleep(.1)
+    joinedChannel = True
+    joinedChannelName = channel
+   
 
 def authHeader():
     global myClientID, mySecret, myOAuth
@@ -62,16 +65,22 @@ def getTopGames():
     return r.json()
 
 def getChat(channel):
-    ircbot.send(("JOIN #" + channel + "\r\n").encode("utf-8"))
-    while 1:
+    global joinedChannel, joinedChannelName
+
+    if (joinedChannel == False or (joinChannel and joinedChannelName != channel)):
+        joinChannel(channel)
+
+    chat = []
+    # bad, but were gonna get 3 seconds worth of chat for each call
+    start = time.time()
+    while (time.time() - start) < 2:
         response = ircbot.recv(1024).decode("utf-8")
         name = response[1:response.find("!")]
         msg = response[response.find(channel)+len(channel)+2:]
         if (len(msg) > 0):
             # print(name, ":", msg)
-            chat[len(chat)] = name + " : " + msg
+            chat.append((str(name), str(msg)))
         time.sleep(.1)
-    print("done")
     return chat
 
 def getFakeText():
@@ -88,5 +97,5 @@ def getFakeText():
 
 #setup()
 #print(getTopGames())
-#joinChannel("limmy")
+
 
