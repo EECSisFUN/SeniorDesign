@@ -4,6 +4,9 @@ from pywinauto import warnings
 import time
 # https://github.com/pywinauto/pywinauto
 
+import win32com.client as comclt
+wsh= comclt.Dispatch("WScript.Shell")
+  
 # WindowsProgramControl.py
 # this uses a very powerful library that can execute many windows api calls
 # many different apps may take use from the functions in this file
@@ -64,3 +67,8 @@ def minimizeProgByName(name):
             return
     except Exception as e:
         print(e)
+
+
+# setup()
+# switchFocus("Chrome")
+# wsh.SendKeys(" ") # send the keys you want

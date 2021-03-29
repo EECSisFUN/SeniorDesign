@@ -8,6 +8,12 @@
     <script>window.$ = window.jQuery = require('../../node_modules/jquery/dist/jquery.min.js');</script>
     <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <style>
+        .column {
+            float: left;
+            width: 33%;
+        }
+    </style>
 </head>
 
 <body style="background-color:#252525; color:white; height:100vh">
@@ -18,13 +24,25 @@
         <h1>Enter channel name</h1>
         <input type="text" id="channel">
         <button id="chatbutton">Get Chat</button>
-        <button id="gamesbutton">Get Top Games</button>
     </br>
     </br>
-        <div id="chat"></div>
-        <div id="topgames"></div>
+        <div id="dashboard" class="column">
+            <h1>TBD Here</h1>
+            <div id="tbd"></div>
+        </div>
+        <div id="dashboard" class="column">
+            <h1>Viewer Count</h1>
+            <div id="count"></div>
+        </div>
+        <div id="dashboard" class="column">
+            <h1>Chat</h1>
+            <div id="chat"></div>
+
+        </div>
+
     </div>
     <script src="index.js"></script>
+    
 </body>
 
 </html>
