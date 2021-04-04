@@ -4,116 +4,145 @@ from pywinauto import warnings
 import time
 import keyboard
 from pynput.keyboard import Key, Controller
+from Apps import WindowsProgramControl
 
-app = None
 
-def switchFocus(name):
-    try:
-        app.connect(title_re=".*%s" % name, visible_only=True, found_index=0)
-        app_dialog = app.window(title_re=".*%s.*" % name, visible_only=True, found_index=0)
-        if app_dialog.exists():
-            app_dialog.set_focus()
-    except Exception as e:
-        print(e)
 
-def pressSpacebar():
+def pressSpacebar(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
-    key =  keyboard.Key.space
+    keyboard.press(Key.space)
+    keyboard.release(Key.space)
+
+def pressESC(Program):
+    WindowsProgramControl.switchFocus(Program)
+    keyboard = Controller()
+    keyboard.press(Key.esc)
+    keyboard.release(Key.esc)
+
+def pressLeftArrow(Program):
+    WindowsProgramControl.switchFocus(Program)
+    keyboard = Controller(Program)
+    keyboard.press(Key.left)
+    keyboard.release(Key.left)
+
+def pressRightArrow(Program):
+    WindowsProgramControl.switchFocus(Program)
+    keyboard = Controller()
+    keyboard.press(Key.right)
+    keyboard.release(Key.right)
+
+def pressUpArrow(Program):
+    WindowsProgramControl.switchFocus(Program)
+    keyboard = Controller()
+    keyboard.press(Key.up)
+    keyboard.release(Key.up)
+
+def pressDownArrow(Program):
+    WindowsProgramControl.switchFocus(Program)
+    keyboard = Controller()
+    keyboard.press(Key.down)
+    keyboard.release(Key.down)
+
+def Fullscreen(Program):
+    WindowsProgramControl.switchFocus(Program)
+    keyboard = Controller()
+    key =  "f" 
     keyboard.press(key)
     keyboard.release(key)
 
-def pressESC():
-    keyboard = Controller()
-    key = keyboard.Key.esc
-    keyboard.press(key)
-    keyboard.release(key)
-
-def pressLeftArrow():
-    keyboard = Controller()
-    key =  keyboard.Key.left
-    keyboard.press(key)
-    keyboard.release(key)
-
-def pressRightArrow():
-    keyboard = Controller()
-    key =  keyboard.Key.right
-    keyboard.press(key)
-    keyboard.release(key)
-
-def pressUpArrow():
-    keyboard = Controller()
-    key =  keyboard.Key.up
-    keyboard.press(key)
-    keyboard.release(key)
-
-def pressDownArrow():
-    keyboard = Controller()
-    key =  keyboard.Key.down
-    keyboard.press(key)
-    keyboard.release(key)
-
-def pressF():
-    keyboard = Controller()
-    key =  "f"
-    keyboard.press(key)
-    keyboard.release(key)
-
-def pressNum1():
+def pressNum1(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "1"
     keyboard.press(key)
     keyboard.release(key)
 
-def pressNum2():
+def pressNum2(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "2"
     keyboard.press(key)
     keyboard.release(key)
 
-def pressNum3():
+def pressNum3(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "3"
     keyboard.press(key)
     keyboard.release(key)
 
-def pressNum4():
+def pressNum4(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "4"
     keyboard.press(key)
     keyboard.release(key)
 
-def pressNum5():
+def pressNum5(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "5"
     keyboard.press(key)
     keyboard.release(key)
 
-def pressNum6():
+def pressNum6(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "6"
     keyboard.press(key)
     keyboard.release(key)
 
-def pressNum7():
+def pressNum7(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "7"
     keyboard.press(key)
     keyboard.release(key)
 
-def pressNum8():
+def pressNum8(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "8"
     keyboard.press(key)
     keyboard.release(key)
 
-def pressNum9():
+def pressNum9(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "9"
     keyboard.press(key)
     keyboard.release(key)
 
-def pressNum0():
+def pressNum0(Program):
+    WindowsProgramControl.switchFocus(Program)
     keyboard = Controller()
     key =  "0"
     keyboard.press(key)
     keyboard.release(key)
+
+def openPlayer(Program):
+    WindowsProgramControl.switchFocus(Program)
+    keyboard = Controller()
+    key =  "p" 
+    keyboard.press(key)
+    keyboard.release(key)
+
+def closePlayer(Program):
+    WindowsProgramControl.switchFocus(Program)
+    keyboard = Controller()
+    key =  "x" 
+    keyboard.press(key)
+    keyboard.release(key)
+
+def skipToNextItem(Program):
+    WindowsProgramControl.switchFocus(Program)
+    keyboard = Controller()
+    keyboard.press(Key.shift)
+    keyboard.press(Key.right)
+    keyboard.release(Key.shift)
+    keyboard.release(Key.right)
+    keyboard.press(Key.shift)
+    keyboard.press("n")
+    keyboard.release(Key.shift)
+    keyboard.release("n")

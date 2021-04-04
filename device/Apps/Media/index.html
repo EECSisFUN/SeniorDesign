@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Plex</title>
+    <title>Media</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>window.$ = window.jQuery = require('../../node_modules/jquery/dist/jquery.min.js');</script>
@@ -10,11 +10,26 @@
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 
-<body style="background-color:#252525; color:white; height:100vh">
-    <div id = "Titles">  </div>
-    <button id="TextButton">Search</button>
+<body style="background-color:#252525; color:white; height:100vh" onload="setup()">
+    <div id="radioholder"></div>
     <button id="PauseButton">Pause</button>
-    <input id="textbox" type="text">
+    <button id="SkipForwardButton">Skip Forward</button>
+    <button id="SkipBackwardsButton">Skip Backwards</button>
+    <button id="MinimizeButton">Minimize</button>
+    <button id="VolUpButton">Volume Up</button>
+    <button id="VolDownButton">Volume Down</button>
+    <button id="FullScreenButton">Full Screen</button>
+    <button id="0SecButton">0% Mark</button>
+    <button id="10SecButton">10% Mark</button>
+    <button id="20SecButton">20% Mark</button>
+    <button id="30SecButton">30% Mark</button>
+    <button id="40SecButton">40% Mark</button>
+    <button id="50SecButton">50% Mark</button>
+    <button id="60SecButton">60% Mark</button>
+    <button id="70SecButton">70% Mark</button>
+    <button id="80SecButton">80% Mark</button>
+    <button id="90SecButton">90% Mark</button>
+    <button id="SkipToNextItem">Skip To Next Item</button>
     <script src="index.js"></script>
 </body>
 
