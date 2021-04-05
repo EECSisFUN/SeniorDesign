@@ -1,4 +1,99 @@
 
+function myOnload() {
+    $.getJSON("http://127.0.0.1:5001" + '/data', {
+            Name: "Twitch",
+            Func: "getViewerCount",
+            Params: [],
+            ExpectReturn: true
+        }, function (data) {
+            console.log(data)
+            $("#count").html(data);
+            $.getJSON("http://127.0.0.1:5001" + '/data', {
+                Name: "Twitch",
+                Func: "getModerators",
+                Params: [],
+                ExpectReturn: true
+            }, function (data) {
+                console.log(data)
+                data.data.forEach(element => {
+                    $("#mods").html(element.user_name);
+                });
+                
+                $.getJSON("http://127.0.0.1:5001" + '/data', {
+                    Name: "Twitch",
+                    Func: "getBans",
+                    Params: [],
+                    ExpectReturn: true
+                }, function (data) {
+                    console.log(data)
+                    data.data.forEach(element => {
+                        $("#bans").html(element.user_name);
+                    });
+                    $.getJSON("http://127.0.0.1:5001" + '/data', {
+                        Name: "Twitch",
+                        Func: "getSubscriptions",
+                        Params: [],
+                        ExpectReturn: true
+                    }, function (data) {
+                        console.log(data)
+                        data.data.forEach(element => {
+                            $("#subs").html(element.user_name);
+                        });
+                        getChat(); // starts the chat read loop
+                    });
+                });
+            });
+    });
+    
+   
+   
+}
+
+$(function () {
+    $('#commerical').on("click", function () {
+        $.getJSON("http://127.0.0.1:5001" + '/data', {
+            Name: "Twitch",
+            Func: "startCommercial",
+            Params: [],
+            ExpectReturn: false
+        }, function (data) {
+            
+        });
+        return false;
+    });
+});
+
+$(function () {
+    $('#subcheckbutton').on("click", function () {
+        var user = $("#subcheck").val();
+        $.getJSON("http://127.0.0.1:5001" + '/data', {
+            Name: "Twitch",
+            Func: "checkSubscribed",
+            Params: user,
+            ExpectReturn: false
+        }, function (data) {
+            $("#subcheckret").innerHTML = "false"
+        });
+        return false;
+    });
+});
+
+$(function () {
+    $('#descbutton').on("click", function () {
+        var desc = $("#desc").val();
+        console.log(desc)
+        $.getJSON("http://127.0.0.1:5001" + '/data', {
+            Name: "Twitch",
+            Func: "updateDescription",
+            Params: desc,
+            ExpectReturn: false
+        }, function (data) {
+            $("#descret").innerHTML = "false"
+        });
+        return false;
+    });
+});
+
 $(function () {
     $('#gamesbutton').on("click", function () {
         var channel = $("#channel").val();
@@ -23,7 +118,7 @@ $(function () {
 });
 
 function getChat() {
-    var channel = $("#channel").val();
+    var channel = "maxzilla2017";
     $.getJSON("http://127.0.0.1:5001" + '/data', {
         Name: "Twitch",
         Func: "getChat",
