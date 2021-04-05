@@ -86,9 +86,9 @@ $(function () {
             Name: "Twitch",
             Func: "updateDescription",
             Params: desc,
-            ExpectReturn: false
+            ExpectReturn: true
         }, function (data) {
-            $("#descret").innerHTML = "false"
+            $("#descret").html("false");
         });
         return false;
     });
