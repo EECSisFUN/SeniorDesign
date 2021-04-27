@@ -251,3 +251,29 @@ $(function () {
         });
     });
 });
+
+$(function () {
+    $('#openPlayer').on('click', function () {
+        var prog = $('input[name="window"]:checked').val();
+        $.getJSON("http://127.0.0.1:5001" + '/data', {
+            Name: "Media",
+            Func: "openPlayer",
+            Params: prog,
+            ExpectReturn: true
+        }, function (data) {
+        });
+    });
+});
+
+$(function () {
+    $('#closePlayer').on('click', function () {
+        var prog = $('input[name="window"]:checked').val();
+        $.getJSON("http://127.0.0.1:5001" + '/data', {
+            Name: "Media",
+            Func: "closePlayer",
+            Params: prog,
+            ExpectReturn: true
+        }, function (data) {
+        });
+    });
+});
