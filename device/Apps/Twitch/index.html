@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Twitch</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>window.$ = window.jQuery = require('../../node_modules/jquery/dist/jquery.min.js');</script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <style>
+        .column {
+            float: left;
+            width: 33%;
+        }
+    </style>
+</head>
+
+<body style="background-color:#252525; color:white; height:100vh" onload="myOnload();">
+    <form>
+        <input type="button" value="Back" onclick="history.back()">
+    </form>
+    </br>
+    </br>
+        <div id="dashboard" class="column">
+            
+        </div>
+        <div id="dashboard" class="column">
+            <button id="commercial">commerical</button>
+            <h1>Viewer Count</h1>
+            <div id="count"></div>
+            <h1>Moderators</h1>
+            <div id="mods"></div>
+            <h1>Bans</h1>
+            <div id="bans"></div>
+            <h1>Subscribers</h1>
+            <div id="subs"></div>
+        </div>
+        <div id="dashboard" class="column">
+            <h1>Chat</h1>
+            <div id="chat"></div>
+        </div>
+        <div id="dashboard" class="column">
+            <h1>Check Subscribed</h1>
+            <input type="text" id="subcheck"> <button id="subcheckbutton">Check</button>
+            <div id="subcheckret"></div>
+        </div>
+
+        <div id="dashboard" class="column">
+            <h1>Change Channel Desc</h1>
+            <input type="text" id="desc"> <button id="descbutton">Change</button>
+            <div id="descret"></div>
+        </div>
+
+    </div>
+    <script src="index.js"></script>
+    
+</body>
+
+</html>

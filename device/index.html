@@ -31,19 +31,31 @@
                 return console.log('Unable to scan directory: ' + err);
             } 
             //listing all files using forEach
-            files.sort().forEach(function (file) {
+            files = files.sort();
+            console.log(files);
+            files.forEach(function (file) {
                 // Do whatever you want to do with the file
-                console.log(file);
-                fs.readFile('Apps/' + file + '/info.json', (err, data) => {
-                    if (err) throw err;
-                    let info = JSON.parse(data);
+                // console.log(file);
+                // fs.readFile('Apps/' + file + '/info.json', (err, data) => {
+                //     if (err) throw err;
+                //     let info = JSON.parse(data);
+                //     app = '<a href ="Apps/' + info.name + '/index.html"> \
+                //     <input id=' + info.displayname + ' type="image" src="Apps/' + info.name + '/' + info.image + '" height=200 width=200>\
+                //     </a>'
+                //     // cheap way, it just works
+                //     document.body.innerHTML = document.body.innerHTML + app
+                //     console.log(info);
+                // });
+                
+                // regular readFile is asynchronous? Mad Ting m8
+                var data = fs.readFileSync('Apps/' + file + '/info.json', {encoding:'utf8', flag:'r'});
+                console.log(data);
+                let info = JSON.parse(data);
                     app = '<a href ="Apps/' + info.name + '/index.html"> \
                     <input id=' + info.displayname + ' type="image" src="Apps/' + info.name + '/' + info.image + '" height=200 width=200>\
                     </a>'
                     // cheap way, it just works
                     document.body.innerHTML = document.body.innerHTML + app
-                    console.log(info);
-                });
             });
         });
     }
